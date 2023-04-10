@@ -13,4 +13,13 @@
   align-items: center;
   font-size: 24px;
   cursor: pointer;
-}
+  .flipped {
+    background-color: aqua;
+    transform: rotateY(180deg);
+  }
+
+  .matched {
+    background-color: green;
+    cursor: default;
+  }
+

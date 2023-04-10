@@ -14,3 +14,17 @@
   font-size: 24px;
   cursor: pointer;
 }
+.card .flipped {
+  background-color: aqua;
+}
+.card .matched {
+  background-color: green;
+}
+
+.flipped {
+  background-color: aqua;
+}
+
+.matched {
+  background-color: green;
+}
