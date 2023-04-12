@@ -1,30 +1,7 @@
-.cards {
+.grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-}
-
-.card {
-  width: 150px;
-  height: 200px;
-  background-color: #ddd;
-  margin: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 24px;
-  cursor: pointer;
-}
-.card .flipped {
-  background-color: aqua;
-}
-.card .matched {
-  background-color: green;
-}
-
-.flipped {
-  background-color: aqua;
-}
-
-.matched {
-  background-color: green;
+  column-gap: 2px;
+  height: 300px;
+  width: 400px;
 }
