@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var resultDisplay = document.querySelector("#result");
   var cardsChosen = [];
   var cardsChosenId = [];
-  var cardsWon = []; //create your board
+  var cardsWon = []; //create the board
 
   function createBoard() {
     cardArray.forEach(function (_, i) {
@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
       card.addEventListener("click", flipCard);
       grid.appendChild(card);
     });
-  } //check for matches
+  } //checks for matches
 
 
   function checkForMatch() {
@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (cardsWon.length === cardArray.length / 2) {
       resultDisplay.textContent = "Congratulations! You have won";
     }
-  } //flip your card
+  } //flip the card
 
 
   function flipCard() {
