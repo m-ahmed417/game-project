@@ -1,5 +1,13 @@
 "use strict";
 
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 document.addEventListener("DOMContentLoaded", function () {
   var cardArray = [{
     name: "arsenal",
@@ -38,45 +46,77 @@ document.addEventListener("DOMContentLoaded", function () {
     name: "united",
     img: "images/united-resized.png"
   }];
+  cardArray.sort(function () {
+    return 0.5 - Math.random();
+  });
   var grid = document.querySelector(".grid");
+  var resultDisplay = document.querySelector("#result");
   var cardsChosen = [];
   var cardsChosenId = [];
-  var cardsWon = [];
+  var cardsWon = []; //create your board
 
   function createBoard() {
-    for (var i = 0; i < cardArray.length; i++) {
+    cardArray.forEach(function (_, i) {
       var card = document.createElement("img");
-      card.setAttribute("src", "images/card-resized.png");
-      card.setAttribute("data-id", i);
+      card.src = "images/card-resized.png";
+      card.dataset.id = i;
+      card.addEventListener("click", flipCard);
       grid.appendChild(card);
+    });
+  } //check for matches
+
+
+  function checkForMatch() {
+    var cards = document.querySelectorAll("img");
+
+    var _cardsChosenId = cardsChosenId,
+        _cardsChosenId2 = _slicedToArray(_cardsChosenId, 2),
+        optionOneId = _cardsChosenId2[0],
+        optionTwoId = _cardsChosenId2[1];
+
+    switch (true) {
+      case optionOneId === optionTwoId:
+        cards[optionOneId].src = "images/card-resized.png";
+        cards[optionTwoId].src = "images/card-resized.png";
+        alert("You have clicked the same image!");
+        break;
+
+      case cardsChosen[0] === cardsChosen[1]:
+        alert("You found a match");
+        [optionOneId, optionTwoId].forEach(function (id) {
+          cards[id].src = "images/white.png";
+          cards[id].removeEventListener("click", flipCard);
+        });
+        cardsWon.push(cardsChosen);
+        break;
+
+      default:
+        [optionOneId, optionTwoId].forEach(function (id) {
+          cards[id].src = "images/card-resized.png";
+        });
+        break;
+    }
+
+    cardsChosen = [];
+    cardsChosenId = [];
+    resultDisplay.textContent = cardsWon.length;
+
+    if (cardsWon.length === cardArray.length / 2) {
+      resultDisplay.textContent = "Congratulations! You have won";
+    }
+  } //flip your card
+
+
+  function flipCard() {
+    var cardId = this.getAttribute("data-id");
+    cardsChosen.push(cardArray[cardId].name);
+    cardsChosenId.push(cardId);
+    this.setAttribute("src", cardArray[cardId].img);
+
+    if (cardsChosen.length === 2) {
+      setTimeout(checkForMatch, 400);
     }
   }
 
   createBoard();
-}); //find matches
-
-function checkForMatch() {
-  var cards = document.querySelectorAll("img");
-  var optionOneId = cardsChosenId[0];
-  var optionTwoId = cardsChosenId[1];
-
-  if (optionOneId == optionTwoId) {
-    cards[optionOneId].setAttribute("src", "images/white.png");
-    cards[optionTwoId].setAttribute("src", "images/white.png");
-    alert("You have a match");
-  }
-} //flip the card
-
-
-function flipCard() {
-  var cardId = this.getAttribute("data-id");
-  cardsChosen.push(cardArray[cardId].name);
-  cardsChosenId.push(cardId);
-  this.setAttribute("src", cardArray[cardId].img);
-
-  if (cardsChosen.length === 2) {
-    setTimeout(checkForMatch, 600);
-  }
-}
-
-createBoard();
+});
