@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let cardsChosenId = [];
   let cardsWon = [];
 
-  //create your board
+  //create the board
   function createBoard() {
     cardArray.forEach((_, i) => {
       const card = document.createElement("img");
@@ -74,7 +74,37 @@ document.addEventListener("DOMContentLoaded", () => {
     const cards = document.querySelectorAll("img");
     const [optionOneId, optionTwoId] = cardsChosenId;
 
-    
+    switch (true) {
+      case optionOneId === optionTwoId:
+        cards[optionOneId].src = "images/card-resized.png";
+        cards[optionTwoId].src = "images/card-resized.png";
+        alert("You have clicked the same image!");
+        break;
+
+      case cardsChosen[0] === cardsChosen[1]:
+        alert("You found a match");
+        [optionOneId, optionTwoId].forEach((id) => {
+          cards[id].src = "images/white.png";
+          cards[id].removeEventListener("click", flipCard);
+        });
+        cardsWon.push(cardsChosen);
+        break;
+
+      default:
+        [optionOneId, optionTwoId].forEach((id) => {
+          cards[id].src = "images/card-resized.png";
+        });
+        break;
+    }
+
+    cardsChosen = [];
+    cardsChosenId = [];
+    resultDisplay.textContent = cardsWon.length;
+
+    if (cardsWon.length === cardArray.length / 2) {
+      resultDisplay.textContent = "Congratulations! You have won";
+    }
+  }
   //flip your card
   function flipCard() {
     let cardId = this.getAttribute("data-id");

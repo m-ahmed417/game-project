@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var resultDisplay = document.querySelector("#result");
   var cardsChosen = [];
   var cardsChosenId = [];
-  var cardsWon = []; //create your board
+  var cardsWon = []; //create the board
 
   function createBoard() {
     cardArray.forEach(function (_, i) {
