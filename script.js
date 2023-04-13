@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let cardsChosenId = [];
   let cardsWon = [];
 
-  //create the board
+  //create your board
   function createBoard() {
     cardArray.forEach((_, i) => {
       const card = document.createElement("img");
@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
       case optionOneId === optionTwoId:
         cards[optionOneId].src = "images/card-resized.png";
         cards[optionTwoId].src = "images/card-resized.png";
-        alert("You have clicked the same image!");
+        alert("You have a match!");
         break;
 
       case cardsChosen[0] === cardsChosen[1]:

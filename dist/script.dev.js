@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var resultDisplay = document.querySelector("#result");
   var cardsChosen = [];
   var cardsChosenId = [];
-  var cardsWon = []; //create the board
+  var cardsWon = []; //create your board
 
   function createBoard() {
     cardArray.forEach(function (_, i) {
@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
       case optionOneId === optionTwoId:
         cards[optionOneId].src = "images/card-resized.png";
         cards[optionTwoId].src = "images/card-resized.png";
-        alert("You have clicked the same image!");
+        alert("You have a match!");
         break;
 
       case cardsChosen[0] === cardsChosen[1]:
